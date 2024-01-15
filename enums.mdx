@@ -1,0 +1,96 @@
+---
+title: "Demystifying TypeScript Type Aliases: A Concise Guide"
+date: "2024-01-15"
+tags: ["typescript"]
+---
+
+# Unveiling the Power of Enums and Tuples in TypeScript
+
+## Adding Structure with Enums
+
+TypeScript, with its incredible flexibility, offers two powerful tools to add more structure to our types: Enums and Tuples. Let's delve into each and explore when they become handy in our coding adventures.
+
+### Enums: A Safer Alternative to Magic Values
+
+Magic values, those elusive constants buried in our code, can often lead to errors and confusion. Take the following example:
+
+```typescript
+function chooseEmoticon(mood: string) {
+  if (mood === "happy") return "😊";
+  if (mood === "sad") return "😢";
+  if (mood === "excited") return "🎉";
+  if (mood === "calm") return "😌";
+}
+```
+
+In this scenario, "happy," "sad," "excited," and "calm" are magic strings. While storing them in constants improves clarity, TypeScript can still misspellings or incorrect usage. Enums come to the rescue, offering a type-safe definition of named constants:
+
+```typescript
+enum Moods {
+  Happy,
+  Sad,
+  Excited,
+  Calm,
+}
+
+function chooseEmoticon(mood: Moods) {
+  if (mood === Moods.Happy) return "😊";
+  // ...
+}
+
+const currentMood = chooseEmoticon(Moods.Happy);
+```
+
+Enums serve as both a type and a value, ensuring that the `mood` parameter must be one of the defined constants. They provide a structured and clear way to handle such scenarios.
+
+Enums in TypeScript are not just types; they are translated into JavaScript snippets representing their shape and behavior. Even the order of enumeration matters, making them a powerful and flexible tool.
+
+```typescript
+enum Moods {
+  Happy,
+  Sad,
+  Excited,
+  Calm,
+}
+
+console.log(Moods);
+// {
+//   '0': 'Happy',
+//   '1': 'Sad',
+//   '2': 'Excited',
+//   '3': 'Calm',
+//   Happy: 0,
+//   Sad: 1,
+//   Excited: 2,
+//   Calm: 3
+// }
+```
+
+Enums can start from a different number or have their properties assigned specific values, including strings.
+
+### Tuples: Unleashing Fixed-Length Arrays
+
+Tuples, on the other hand, provide a way to structure arrays with a fixed length and specific types for each element. Let's consider an example where we want an array with a string and a function:
+
+```typescript
+function createStateManager(
+  initialState: string,
+): [string, (newState: string) => void] {
+  // Implementation goes here.
+}
+```
+
+With tuples, TypeScript allows us to define the exact types for each item in the array, offering clarity and preventing unintended usage.
+
+```typescript
+const [currentState, updateState] = createStateManager("initialState");
+// const currentState: string
+// const updateState: (newState: string) => void
+updateState("newState"); // No error
+```
+
+Tuples empower us to express precisely what types we expect at each index, avoiding the need for additional type checks.
+
+In the world of TypeScript, Enums and Tuples emerge as stalwart companions, adding structure, clarity, and safety to our code. Whether guarding against magic values with Enums or structuring fixed-length arrays with Tuples, these features elevate our coding experience.
+
+Stay tuned for more TypeScript insights and coding adventures! 🚀🎨
